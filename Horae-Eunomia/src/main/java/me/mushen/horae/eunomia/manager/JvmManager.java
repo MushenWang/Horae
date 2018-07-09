@@ -1,6 +1,7 @@
 package me.mushen.horae.eunomia.manager;
 
 import me.mushen.horae.eunomia.model.ClassLoadingM;
+import me.mushen.horae.eunomia.model.CompilationM;
 import me.mushen.horae.eunomia.model.MemoryM;
 import me.mushen.horae.eunomia.model.RuntimeM;
 import me.mushen.horae.eunomia.result.PojoResult;
@@ -102,6 +103,23 @@ public class JvmManager {
                         .noHeapMemoryCommitted(noHeapMemoryUsage.getCommitted())
                         .noHeapMemoryMax(noHeapMemoryUsage.getMax())
                         .verbose(memoryMXBean.isVerbose())
+                        .build()
+        );
+    }
+
+    /**
+     * Show the compilation system of the Java virtual machine.
+     * @return
+     */
+    public PojoResult<CompilationM> showCompilation() {
+        return new PojoResult<>(
+                CompilationM.builder()
+                        .jitCompilerName(compilationMXBean.getName())
+                        .totalCompilationTime(
+                                compilationMXBean.isCompilationTimeMonitoringSupported()
+                                        ? compilationMXBean.getTotalCompilationTime()
+                                        : 0L
+                        )
                         .build()
         );
     }

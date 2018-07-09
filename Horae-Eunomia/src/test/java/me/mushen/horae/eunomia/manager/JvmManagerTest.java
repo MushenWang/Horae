@@ -27,5 +27,10 @@ public class JvmManagerTest {
         System.out.println(
                 jvmManager.showMemory()
         );
+
+        System.out.println("Compilation System");
+        System.out.println(
+                jvmManager.showCompilation()
+        );
     }
 }
